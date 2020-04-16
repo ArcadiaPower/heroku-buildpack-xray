@@ -7,7 +7,7 @@ Installation
 Add it to your app:
 
 ```
-heroku buildpacks:add https://github.com/arcadia-power/heroku-buildpack-xray
+heroku buildpacks:add https://github.com/ArcadiaPower/heroku-buildpack-xray
 ```
 
 Configuration
