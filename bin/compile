@@ -29,7 +29,7 @@ log "Creating .profile.d script..."
 cat > $BUILD_DIR/.profile.d/001-xray-daemon.sh << EOF
 #!/bin/sh
 
-$HOME/bin/xray --log-level debug --local-mode --region us-east-1 --role-arn arn:aws:iam::404655101703:role/xray-cross-account &
+$HOME/bin/xray --log-level debug --local-mode --region us-east-1 --role-arn $AWS_XRAY_ROLE_ARN &
 EOF
 
 chmod +x $BUILD_DIR/.profile.d/001-xray-daemon.sh
