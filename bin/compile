@@ -11,6 +11,7 @@ ENV_DIR=$3
 DPKG_DIR=$BUILD_DIR/.dpkg
 DPKG_CACHE_DIR=$CACHE_DIR/dpkg/cache
 XRAY_DOWNLOAD_LINK="https://s3.us-east-2.amazonaws.com/aws-xray-assets.us-east-2/xray-daemon/aws-xray-daemon-linux-3.x.zip"
+AWS_XRAY_ROLE_ARN=$(< $ENV_DIR/AWS_XRAY_ROLE_ARN)
 
 mkdir -p $CACHE_DIR
 mkdir -p $BUILD_DIR/bin
