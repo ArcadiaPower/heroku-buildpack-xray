@@ -10,7 +10,7 @@ CACHE_DIR=$2
 ENV_DIR=$3
 DPKG_DIR=$BUILD_DIR/.dpkg
 DPKG_CACHE_DIR=$CACHE_DIR/dpkg/cache
-XRAY_DOWNLOAD_LINK="https://s3.dualstack.us-east-2.amazonaws.com/aws-xray-assets.us-east-2/xray-daemon/aws-xray-daemon-linux-2.x.zip"
+XRAY_DOWNLOAD_LINK="https://s3.us-east-2.amazonaws.com/aws-xray-assets.us-east-2/xray-daemon/aws-xray-daemon-linux-3.x.zip"
 
 mkdir -p $CACHE_DIR
 mkdir -p $BUILD_DIR/bin
@@ -29,7 +29,7 @@ log "Creating .profile.d script..."
 cat > $BUILD_DIR/.profile.d/001-xray-daemon.sh << EOF
 #!/bin/sh
 
-$HOME/bin/xray --log-level error --local-mode &
+$HOME/bin/xray --log-level debug --local-mode --region us-east-1 --role-arn arn:aws:iam::404655101703:role/xray-cross-account &
 EOF
 
 chmod +x $BUILD_DIR/.profile.d/001-xray-daemon.sh
