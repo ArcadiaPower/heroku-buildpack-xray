@@ -12,6 +12,7 @@ DPKG_DIR=$BUILD_DIR/.dpkg
 DPKG_CACHE_DIR=$CACHE_DIR/dpkg/cache
 XRAY_DOWNLOAD_LINK="https://s3.us-east-2.amazonaws.com/aws-xray-assets.us-east-2/xray-daemon/aws-xray-daemon-linux-3.x.zip"
 AWS_XRAY_ROLE_ARN=$(< $ENV_DIR/AWS_XRAY_ROLE_ARN)
+AWS_XRAY_LOG_LEVEL='error'
 
 mkdir -p $CACHE_DIR
 mkdir -p $BUILD_DIR/bin
@@ -30,7 +31,12 @@ log "Creating .profile.d script..."
 cat > $BUILD_DIR/.profile.d/001-xray-daemon.sh << EOF
 #!/bin/sh
 
-$HOME/bin/xray --log-level debug --local-mode --region us-east-1 --role-arn $AWS_XRAY_ROLE_ARN &
+if [ -z "$AWS_XRAY_ROLE_ARN" ]
+then
+  $HOME/bin/xray --log-level $AWS_XRAY_LOG_LEVEL --local-mode --region us-east-1 &
+else
+  $HOME/bin/xray --log-level $AWS_XRAY_LOG_LEVEL --local-mode --region us-east-1 --role-arn $AWS_XRAY_ROLE_ARN &
+fi
 EOF
 
 chmod +x $BUILD_DIR/.profile.d/001-xray-daemon.sh
